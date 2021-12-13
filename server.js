@@ -2,6 +2,7 @@ const Vimeo = require('vimeo').Vimeo;
 const express = require('express');
 const hostValidation = require('host-validation')
 const ejs = require('ejs');
+const https = require('https')
 
 const app = express();
 
@@ -82,8 +83,8 @@ app.get('/vimeo/api', (request, response) => {
     },
     function(error, body, status_code, headers) {
       if (error) {
-        response.status(500).send(error);
         console.log('[Server] ' + error);
+        response.status(500).send(error);
       } else {
         // Pass through the whole JSON response
         response.status(200).send(body);

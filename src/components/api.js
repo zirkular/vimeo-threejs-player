@@ -1,6 +1,7 @@
 /* global fetch */
 
 const ApiPath = '/vimeo/api'
+const ConfigApiPath = '/vimeo/config-api'
 
 /** A static class that interfaces with the server-side Vimeo API */
 export default class API {
@@ -10,7 +11,12 @@ export default class API {
    * @returns {string}
    */
   static path (endpoint) {
-    return `${ApiPath}?path=${endpoint}?fields=uri,play,width,height,live,description,title`
+    // return `${ApiPath}?path=${endpoint}?fields=uri,play,width,height,live,description,title,stats,link`
+    return `${ApiPath}?path=${endpoint}`
+  }
+
+  static configPath (endpoint) {
+    return `${ConfigApiPath}?path=${endpoint}`
   }
 
   /**
@@ -25,6 +31,14 @@ export default class API {
       })
     })
   }
+
+  // static getVideoConfig (videoId) {
+  //   return new Promise((resolve, reject) => {
+  //     fetch(API.configPath(`/video/${videoId}/config`)).then(res => {
+  //       API.sendResponse(res, resolve, reject)
+  //     })
+  //   })
+  // }
 
   /**
    * A method for requesting Vimeo albums by album id

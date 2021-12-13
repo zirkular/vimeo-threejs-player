@@ -1,6 +1,7 @@
 import Util from './util'
 import dashjs from 'dashjs'
 import EventEmitter from 'event-emitter-es6'
+import Hls from 'hls.js'
 
 /** Class representing a DOM video element */
 export default class VideoElement extends EventEmitter {
@@ -191,20 +192,20 @@ export default class VideoElement extends EventEmitter {
    * @returns {HTMLElement}
    */
   createAdaptivePlayer (vimeoVideo) {
-    let player
+    let player = this.domElement
 
-    if (vimeoVideo.isDashPlayback()) {
-      player = dashjs.MediaPlayer().create()
-      player.initialize(this.domElement, vimeoVideo.getAdaptiveURL(), vimeoVideo.autoplay)
+    if (Util.isiOS()) {
+      this.setiOSPlayerAttributes(player)
+    }
+
+    if(Hls.isSupported()) {
+      var hls = new Hls();
+      console.log("[Browser] Found HLS plugin.")
+      console.log(hls)
+      hls.loadSource(vimeoVideo.getFileURL());
+      hls.attachMedia(player);
     } else {
-      player = this.domElement
-
-      if (Util.isiOS()) {
-        this.setiOSPlayerAttributes(player)
-      }
-
-      player.src = vimeoVideo.getFileURL()
-      player.load()
+      console.error("[Browser] Could not find HLS plugin.")
     }
 
     return player
