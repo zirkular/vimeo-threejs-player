@@ -12,7 +12,7 @@ export default class API {
    */
   static path (endpoint) {
     // return `${ApiPath}?path=${endpoint}?fields=uri,play,width,height,live,description,title,stats,link`
-    return `${ApiPath}?path=${endpoint}`
+    return `https://api.zirkular.io${ApiPath}?path=${endpoint}`
   }
 
   static configPath (endpoint) {

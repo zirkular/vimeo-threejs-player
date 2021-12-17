@@ -200,8 +200,6 @@ export default class VideoElement extends EventEmitter {
 
     if(Hls.isSupported()) {
       var hls = new Hls();
-      console.log("[Browser] Found HLS plugin.")
-      console.log(hls)
       hls.loadSource(vimeoVideo.getFileURL());
       hls.attachMedia(player);
     } else {

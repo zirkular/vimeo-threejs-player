@@ -1,4 +1,5 @@
 /* global THREE */
+import * as THREE from "three";
 import VideoQuality from './video-quality'
 import VideoElement from './video-element'
 import Util from './util'
@@ -287,7 +288,6 @@ export default class VimeoVideo extends EventEmitter {
     if (this.isDashPlayback()) {
       console.error('[Vimeo] Dash playback is not supported anymore!')
     } else {
-      console.log('[Vimeo] Using HLS!')
       if (this.data) {
         let files = this.data.files
         return files[files.length - 1].link
